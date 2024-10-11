@@ -61,10 +61,10 @@ function Reactor:syncState(tick, interval)
         steamLevel = self.control.getHeatedCoolant().amount,
         steamCapacity = self.control.getHeatedCoolantCapacity(),
 
-        active = reactor.getStatus(),
-        temperature = reactor.getTemperature() - 273,
+        active = self.control.getStatus(),
+        temperature = self.control.getTemperature() - 273,
 
-        burnRate = reactor.getBurnRate()
+        burnRate = self.control.getBurnRate()
     }
     local fuelRate = 0
     if self.last and interval then 
