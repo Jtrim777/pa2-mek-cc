@@ -101,9 +101,11 @@ function regbus.init_host(name)
                 response.error = "No writable register with name " .. message.register 
             end
         elseif message.cmd == "NEW" then
-            if (registers[message.register] or artificialRegisters[message.register]) and not message.allowExists then 
-                response.success = false 
-                response.error = "Register with that name already exists"
+            if (registers[message.register] or artificialRegisters[message.register]) then 
+                if not message.allowExists then 
+                    response.success = false 
+                    response.error = "Register with that name already exists"
+                end
             elseif message.value == nil then
                 response.success = false 
                 response.error = "Missing initial value for register"
