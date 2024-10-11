@@ -101,7 +101,7 @@ function regbus.init_host(name)
                 response.error = "No writable register with name " .. message.register 
             end
         elseif message.cmd == "NEW" then
-            if registers[message.register] or artificialRegisters[message.register] then 
+            if (registers[message.register] or artificialRegisters[message.register]) and not message.allowExists then 
                 response.success = false 
                 response.error = "Register with that name already exists"
             elseif message.value == nil then
@@ -178,12 +178,8 @@ function regbus.init_bridge(hostname)
         return response.value 
     end
 
-    function bridge.create_register(rname, init, faf)
-        rednet.send(bridge.hostId, { cmd = "NEW", register = rname, value = init }, "regbus")
-    
-        if faf then
-            return nil
-        end
+    function bridge.create_register(rname, init, allowExists)
+        rednet.send(bridge.hostId, { cmd = "NEW", register = rname, value = init, allowExists = allowExists }, "regbus")
     
         local _, response = rednet.receive("regbus", 5)
     
