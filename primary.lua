@@ -29,7 +29,7 @@ function updateDisplay()
 
     fuelBoxes = reactorFuelPercent * 10
     paintutils.drawFilledBox(6, 2, 6 + fuelBoxes, 2, colors.orange)
-    paintutils.drawBox(6 + fuelBoxes + 1, 2, 16, colors.orange)
+    paintutils.drawBox(6 + fuelBoxes + 1, 2, 16, 2, colors.orange)
     screen.setCursorPos(17, 2)
     screen.write(("%.2f B"):format(reactorFuelLevel/1000.0))
 end
